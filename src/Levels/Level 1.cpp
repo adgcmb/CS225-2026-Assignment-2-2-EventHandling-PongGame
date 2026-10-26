@@ -1,8 +1,20 @@
+#include "CPU.hh"
+#include "ball.hh"
+#include "player.hh"
+#include "collision_event_manager.hh"
+#include "input_event_manager.hh"
 #include <AEEngine.h>
 #include <imgui/imgui.h>
 #include "Level 1.h"
 
 int mode = 0;
+
+Player* player = nullptr;
+Ball* ball = nullptr;
+CPU* cpu = nullptr;
+
+InputEventManager* inputManager = nullptr;
+CollisionEventManager* collisionManager = nullptr;
 
 bool ShowFrameworkMenu();
 
@@ -12,6 +24,16 @@ void Level_1_Load()
 
 void Level_1_Init()
 {
+    player = new Player(-350, 0);
+    ball = new Ball(0, 0);
+    cpu = new CPU(350, 0, ball);
+
+    inputManager = new InputEventManager();
+    inputManager->registerEventHandler(player->getInputHandler());
+
+    collisionManager = new CollisionEventManager(ball, player, cpu);
+    collisionManager->registerEventHandler(ball->getCollisionHandler());
+    collisionManager->registerEventHandler(cpu->getCollisionHandler());
 }
 
 void Level_1_Update()
@@ -20,7 +42,31 @@ void Level_1_Update()
     KeyboardInput();
     bool guiActive = ShowFrameworkMenu();
 
+    // Detect keyboard input and dispatch events
+    if (inputManager != nullptr)
+    {
+        inputManager->update();
+    }
 
+    if (collisionManager != nullptr)
+    {
+        collisionManager->update();
+    }
+    // Update player position
+    if (player != nullptr)
+    {
+        player->Update();
+    }
+    // Update ball position
+    if (ball != nullptr)
+    {
+        ball->Update();
+    }
+    // Update cpu position
+    if (cpu != nullptr)
+    {
+        cpu->Update();
+    }
 }
 
 void Level_1_Render()
@@ -28,11 +74,40 @@ void Level_1_Render()
     // clear frame buffer, do not delete this code
     AEGfxSetClearColor(AEGfxColor(0, 0, 0));
     AEGfxClearBuffer();
+
+    // Draw player paddle
+    if (player != nullptr)
+    {
+        player->Draw();
+    }
+    // Draw ball
+    if (ball != nullptr)
+    {
+        ball->Draw();
+    }
+    // Draw cpu
+    if (cpu != nullptr)
+    {
+        cpu->Draw();
+    }
 }
 
 void Level_1_Free()
 {
+    delete inputManager;
+    inputManager = nullptr;
 
+    delete collisionManager;
+    collisionManager = nullptr;
+
+    delete player;
+    player = nullptr;
+
+    delete ball;
+    ball = nullptr;
+
+    delete cpu;
+    cpu = nullptr;
 }
 
 void Level_1_Unload()

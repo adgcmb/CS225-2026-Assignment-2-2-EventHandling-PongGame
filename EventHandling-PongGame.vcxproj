@@ -19,6 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ball.cc" />
+    <ClCompile Include="collision_event_manager.cc" />
+    <ClCompile Include="CPU.cc" />
+    <ClCompile Include="input_event_manager.cc" />
+    <ClCompile Include="player.cc" />
+    <ClCompile Include="pong_events.cc" />
     <ClCompile Include="src\Components\position_component.cc" />
     <ClCompile Include="src\Components\render_component.cc" />
     <ClCompile Include="src\Framework\component.cc" />
@@ -28,6 +34,12 @@
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ball.hh" />
+    <ClInclude Include="collision_event_manager.hh" />
+    <ClInclude Include="CPU.hh" />
+    <ClInclude Include="input_event_manager.hh" />
+    <ClInclude Include="player.hh" />
+    <ClInclude Include="pong_events.hh" />
     <ClInclude Include="src\Components\position_component.hh" />
     <ClInclude Include="src\Components\render_component.hh" />
     <ClInclude Include="src\Framework\component.hh" />
@@ -139,7 +151,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)AECore\lib\$(Configuration)\;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)AECore\lib\$(Configuration)\</AdditionalLibraryDirectories>
       <AdditionalDependencies>aecore.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
