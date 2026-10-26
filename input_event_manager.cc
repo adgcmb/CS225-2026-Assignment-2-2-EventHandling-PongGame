@@ -1,5 +1,6 @@
 #include "input_event_manager.hh"
 
+// Checks keyboard input and notifies the registered event handlers
 void InputEventManager::update()
 {
     if (AEInputKeyPressed('W'))

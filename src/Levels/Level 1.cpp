@@ -9,10 +9,12 @@
 
 int mode = 0;
 
+// Pointers to the game entities
 Player* player = nullptr;
 Ball* ball = nullptr;
 CPU* cpu = nullptr;
 
+// Managers responsible for input and collision events
 InputEventManager* inputManager = nullptr;
 CollisionEventManager* collisionManager = nullptr;
 
@@ -24,13 +26,18 @@ void Level_1_Load()
 
 void Level_1_Init()
 {
+    // Create the player paddle on the left
     player = new Player(-350, 0);
+    // Create the ball at the center of the screen
     ball = new Ball(0, 0);
+    // Create the CPU paddle on the right
     cpu = new CPU(350, 0, ball);
 
+    // Create the input manager and register the player's input handler
     inputManager = new InputEventManager();
     inputManager->registerEventHandler(player->getInputHandler());
 
+    // Create the collision manager and register the collision handlers
     collisionManager = new CollisionEventManager(ball, player, cpu);
     collisionManager->registerEventHandler(ball->getCollisionHandler());
     collisionManager->registerEventHandler(cpu->getCollisionHandler());
@@ -47,7 +54,7 @@ void Level_1_Update()
     {
         inputManager->update();
     }
-
+    // Detect collisions and notify the ball and CPU
     if (collisionManager != nullptr)
     {
         collisionManager->update();

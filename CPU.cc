@@ -3,11 +3,14 @@
 
 #include <AEEngine.h>
 
+// Constructor: initializes the CPU paddle and its collision event handler
 CPU::CPU(int x, int y, Ball* ball) : speed(250.0f), followingBall(true), ball(ball), collisionHandler(this, &CPU::onCollision)
 {
+    // Attach the position component to the CPU entity
     attach(new PositionComponent(x, y));
 }
 
+// Handles collision events received from the CollisionEventManager
 void CPU::onCollision(CollisionEvent* event)
 {
     switch (event->type)
@@ -30,6 +33,7 @@ void CPU::onCollision(CollisionEvent* event)
     }
 }
 
+// Updates the CPU paddle position to follow the ball
 void CPU::Update()
 {
     if (!followingBall || ball == nullptr)
@@ -75,6 +79,7 @@ void CPU::Update()
     position->setPosition(position->getX(), static_cast<int>(currentY));
 }
 
+// Draws the CPU paddle on the screen
 void CPU::Draw()
 {
     PositionComponent* position =
@@ -95,6 +100,7 @@ void CPU::Draw()
     );
 }
 
+// Returns the CPU collision handler so it can be registered with the CollisionEventManager
 EventHandler<CPU, CollisionEvent>* CPU::getCollisionHandler()
 {
     return &collisionHandler;

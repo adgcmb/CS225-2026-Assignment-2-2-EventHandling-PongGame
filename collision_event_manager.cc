@@ -4,8 +4,10 @@
 #include "collision_event_manager.hh"
 #include <AEEngine.h>
 
+// Constructor: stores pointers to the ball and both paddles
 CollisionEventManager::CollisionEventManager(Ball* ball, Player* player, CPU* cpu) : ball(ball), player(player), cpu(cpu) {}
 
+// Checks collisions between the ball, walls, and paddles
 void CollisionEventManager::update()
 {
     if (ball == nullptr)
