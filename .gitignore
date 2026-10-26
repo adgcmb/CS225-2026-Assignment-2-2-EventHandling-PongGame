@@ -429,3 +429,5 @@ FodyWeavers.xsd
 
 # Exclude AECore/lib folder and its contents
 AECore/lib/
+AECore/lib/Debug
+AECore/lib/Release
